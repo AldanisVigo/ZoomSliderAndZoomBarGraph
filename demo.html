@@ -1,0 +1,167 @@
+
+<!--
+	Author: Aldanis Vigo
+	Description: Example of how to install, and initialize the ZoomSlider plugin
+-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Stored Analytics</title>
+	<!--First include jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+	<!--Then include the jquery ui draggable collision plugin-->
+	<script src="src/jquery-ui-draggable-collision/jquery-1.8.3.min.js"></script>
+    <script src="src/jquery-ui-draggable-collision/ui/jquery.ui.core.js"></script>
+    <script src="src/jquery-ui-draggable-collision/ui/jquery.ui.widget.js"></script>
+    <script src="src/jquery-ui-draggable-collision/ui/jquery.ui.mouse.js"></script>
+    <script src="src/jquery-ui-draggable-collision/ui/jquery.ui.draggable.js"></script>
+    <script src="src/jquery-ui-draggable-collision/jquery-collision.min.js"></script>
+    <script src="src/jquery-ui-draggable-collision/jquery-ui-draggable-collision.js"></script>
+
+    <!--Moment.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+
+    <!--Our Custom Plugins-->
+    <!--ZoomSlider-->
+    <script src="src/jquery-zoomslider-plugin.js"></script>
+    <!--ZoomBarGraph-->
+    <script src="src/jquery-zoombargraph-plugin.js"></script>
+
+	<style>	
+		#slide{
+
+		}
+
+		#parent{
+			width: 400px;
+			height: 400px;
+			position: relative;
+			border: 1px solid black;
+		}
+		#child{
+			width: 10px;
+			height: 10px;
+			position: absolute;
+			left:0;
+			top:0;
+			background: black;
+		}
+		/*#info{
+			margin-top: 30px;
+		}*/
+	</style>
+	<script>
+		$(document).ready(()=>{
+
+			const graphData = [
+				{
+					date: '7-3-2018',
+					val: 4
+				},
+				{
+					date: '7-4-2018',
+					val : 19
+				},
+				{
+					date: '7-5-2018',
+					val : 1
+				},
+				{
+					date: '7-6-2018',
+					val : 4
+				},
+				{
+					date: '7-7-2018',
+					val : 100
+				},
+				{
+					date: '7-8-2018',
+					val: 2
+				},
+				{
+					date: '7-9-2018',
+					val : 12
+				},
+				{
+					date: '7-10-2018',
+					val : 3
+				},
+				{
+					date: '7-11-2018',
+					val : 6
+				},
+				{
+					date: '7-12-2018',
+					val : 13
+				},
+				{
+					date: '7-13-2018',
+					val : 22
+				}
+			]
+
+
+			/*
+				Initialize a new ZoomSlider
+			*/
+			$('#slide').ZoomSlider({
+				//width: '200px', //Set the width of the slider, if left uset will become 100%
+				height: "40px",	//Set the height of the slider, if left unset will be 20px
+				leftPercent: 0, //Set the percentage to initialize the left slider at
+				rightPercent: 100, //Set the percentage to initialize the right slider at
+				slidersColor: null,
+				handleColor: 'red',
+				backgroundColor: 'linear-gradient(to bottom,gray,white,gray)',
+				slidersMoved: (left_percent,right_percent,percent_selected)=>{
+					/*
+						This event fires whenever the slider's positions change.
+					*/
+					$('#info').html(
+						"Left Slider: " + left_percent + "% from left" + "<br/>" + 
+						"Right Slider: " + right_percent + "% from left" + "<br/>" + 
+						"Total selection percent: " + percent_selected + "%"
+					)
+
+					$('#child').css({
+						'left' : (left_percent / 100) * $('#parent').width(),
+						'width' : (percent_selected / 100) * $('#parent').width(),
+						'height' : (percent_selected / 100) * $('#parent').height() 
+					})
+
+					let leftDate = moment(graphData[0].date)
+					let rightDate = moment(leftDate).add(graphData.length,'days')
+
+					let new_left = moment(leftDate).add((left_percent / 100) * graphData.length,'days')
+					let new_right = moment(leftDate).add((right_percent / 100) * graphData.length,'days')
+					$('#timerange').text("Date Range Selected: " + moment(new_left).format('M-D-Y') + " to " + moment(new_right).format('M-D-Y'))
+
+
+					$('#graph').ZoomBarGraph({
+						graphTitle: "Markers Placed by Date",
+						graphData: graphData,
+						rangeFrom : new_left,
+						rangeTo: new_right,
+						barBackgroundColor: 'linear-gradient(to right,#dca0b0,#db5030,#dca0b0)'
+					})
+				}
+			})
+		})		
+	</script>
+</head>
+<body>
+	<header>
+	</header>
+	<section>
+	<div id="graph"></div>
+	<!--Create a div which will become the ZoomSlider-->
+	<div id="slide"></div>
+	<div id="timerange"></div>
+	<div id="info"></div>
+	<div id="parent">
+		<div id="child">
+		</div>
+	</div>
+</body>
+</html>
