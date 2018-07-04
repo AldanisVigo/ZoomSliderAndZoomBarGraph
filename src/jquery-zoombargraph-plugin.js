@@ -96,9 +96,8 @@ $.fn.ZoomBarGraph = function(options){
 				'writing-mode' : 'vertical-rl',
 				'text-orientation' : 'upright',
 				'font-size' : '12px',
-				display : 'none',
+				'display' : 'none',
 				'position' : 'absolute',
-				'left': $(newBar).position().left,
 				'top': -400,
 				'transform' : 'rotateX(180deg)',
 				'background' : 'white',
@@ -126,7 +125,7 @@ $.fn.ZoomBarGraph = function(options){
 			$(newBar).hover(e=>{
 				date_tooltip.css({
 					display : 'block',
-					left : $(newBar).position().left + 2,
+					left : $(newBar).position().left - $(container).position().left,
 					top : 0
 				})
 				$(newBar).css({

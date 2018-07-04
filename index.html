@@ -149,19 +149,121 @@
 			})
 		})		
 	</script>
+
+	<!--Nav Styling-->
+	<style>
+		.header{
+			margin: 20px;
+			font-weight: bold;
+			font-size: xx-large;
+		}
+		#nav{
+			border: 1px solid black;
+			padding: 10px;
+			margin-bottom: 20px;
+		}
+		#nav_container{
+			/*float: left;*/
+			display: block;
+		}
+		.nav_link{
+			display: inline-block;
+			border: 1px solid black;
+			padding: 10px;
+			margin-top: 5px;
+		}
+		.nav_link:hover{
+			background: linear-gradient(to bottom, #a73e27,#fff,#a73e27);
+			cursor: pointer;
+		}
+
+		#graph{
+			display: block;
+			max-width: 80%;
+			margin: auto;
+		}
+
+		#slide{
+			display: block;
+			max-width: 80%;
+			margin: auto;
+		}
+		#timerange{
+			display: block;
+			margin: auto;
+			width: 50%;
+			text-align: center;
+		}
+
+		#info{
+			display: block;
+			margin: auto;
+			width: 80%;
+		}
+
+		#parent{
+			display: block;
+			width: 80%;
+			margin: auto;
+		}
+
+		#child{
+
+		}
+
+	</style>
 </head>
 <body>
-	<header>
+	<header class="header">
+		ZoomSlider + ZoomBarGraph jQuery Plugins
 	</header>
-	<section>
-	<div id="graph"></div>
-	<!--Create a div which will become the ZoomSlider-->
-	<div id="slide"></div>
-	<div id="timerange"></div>
-	<div id="info"></div>
-	<div id="parent">
-		<div id="child">
+	<aside id="nav">
+		<nav id="nav_container">
+			<div class="nav_link"><a href="#zoomsliderintro">ZoomSlider Introduction</a></div>
+			<div class="nav_link"><a href="#zoomslidersetup">ZoomSlider Setup</a></div>
+			<div class="nav_link">ZoomSlider Options</div>
+			<div class="nav_link">ZoomBarGraph Intruduction</div>
+			<div class="nav_link">ZoomBarGraph Setup</div>
+			<div class="nav_link">ZoomBarGraph Options</div>
+		</nav>
+	</aside>
+	<main>
+		<div id="graph"></div>
+		<!--Create a div which will become the ZoomSlider-->
+		<div id="slide"></div>
+		<div id="timerange"></div>
+		<div id="info"></div>
+		<div id="parent">
+			<div id="child">
+			</div>
 		</div>
-	</div>
+	</main>
+
+	<section>
+		<article>
+			<h1 id="zoomsliderintro">ZoomSlider Introduction</h1>
+			<p>
+				ZoomSlider is a jQuery plugin that allows you to select a percentage of a whole. It does this by allowing you to use a sliding handle with two sliders one on each side which you can drag in either direction. By dragging the sliders you can change the overall percentage selected, by dragging the inner handle left and right you can select a different chuck of the whole percentage. The slider's percentage are calculated from the left side of the ZoomSlider bar as the demo above shows.
+			</p>
+			<h1>ZoomSlider Setup</h1>
+			<p>
+				ZoomSlider depends on jQuery + jQuery UI and the jquery-ui-draggable-collision plugins. You can find them within the src directory in the main repository or you can also find them here:
+
+				<ol>
+					<li><a href="https://code.jquery.com/">jQuery + jQuery UI</a></li>
+					<li><a href="https://sourceforge.net/projects/jquidragcollide/files/latest/download">jQuery UI Draggable Collision</a></li>
+				</ol>
+
+				Installation is pretty straight formard but you can always have a look at the index.html file in the repo to see exactly how it's done. 
+
+				<h1>Basic Setup Steps</h1>
+				<ol>
+					<li><a href="#includejquery">Include jQuery and jQuery UI in the header section of your page</a></li>
+					<li><a href="#includecollision">Include the jQuery UI Draggable Collision lib to the head section of your page</a></li>
+					<li><a href="#includezoomslider">Include the ZoomSlider plugin to the head section of your page</a></li>
+				</ol>
+			</p>
+		</article>
+	</section>
 </body>
 </html>
